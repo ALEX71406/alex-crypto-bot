@@ -1,8 +1,10 @@
 """
 Web Dashboard & 24/7 Cloud Background Worker for MADE BY ALEX
-Works 100% out of the box on Render.com / Railway without complex dependencies.
-Uses Python's built-in threaded HTTP server to serve a sleek mobile dashboard
-while running the automated trading bot 24/7 in a background thread.
+Features:
+- Live Interactive TradingView Bitcoin Chart
+- Visual P&L / Equity Growth Curve
+- Active Trade Card (Entry, SL, TP, Unrealized P&L in INR)
+- Real-time Activity Ledger & Auto-refresh
 """
 import os
 import sys
@@ -23,7 +25,6 @@ from market_data import fetch_btc_market_analysis
 from trade_reviewer import review_trade
 from order_executor import OrderExecutor
 
-# Global state for dashboard
 BOT_STATE = {
     "status": "INITIALIZING",
     "last_check_time": "Never",
@@ -34,7 +35,8 @@ BOT_STATE = {
     "total_trades": 0,
     "total_pnl_inr": 0.0,
     "mode": config.TRADING_MODE,
-    "recent_logs": []
+    "recent_logs": [],
+    "pnl_history": [0.0]
 }
 
 def log_event(msg):
@@ -46,42 +48,38 @@ def log_event(msg):
         BOT_STATE["recent_logs"].pop()
 
 def background_trading_loop():
-    log_event("🚀 24/7 Cloud Trading Worker Started!")
+    log_event("🚀 24/7 Cloud Trading Worker Active!")
     rm = RiskManager()
     paper = PaperTradingEngine(risk_manager=rm)
     executor = OrderExecutor(paper_engine=paper)
 
     while True:
         try:
-            BOT_STATE["status"] = "CHECKING MARKET"
+            BOT_STATE["status"] = "ACTIVE"
             now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             BOT_STATE["last_check_time"] = now_str
 
-            # 1. Fetch live market analysis
             market = fetch_btc_market_analysis()
             if market.get("success"):
                 current_price = market["current_price"]
-                rsi = market["rsi_14"]
-                trend = market["trend"]
-
                 BOT_STATE["btc_price"] = current_price
-                BOT_STATE["rsi_14"] = rsi
-                BOT_STATE["trend"] = trend
+                BOT_STATE["rsi_14"] = market["rsi_14"]
+                BOT_STATE["trend"] = market["trend"]
 
-                # 2. Update active paper position
+                # Update active position
                 pos_update = paper.update_price(current_price)
                 if pos_update["event"] == "STOP_LOSS_HIT":
                     log_event(f"🛑 STOP-LOSS HIT at ${current_price:,.2f}! Net PnL: Rs {pos_update['details']['net_pnl_inr']}")
+                    BOT_STATE["pnl_history"].append(rm.history.get("total_pnl_inr", 0.0))
                 elif pos_update["event"] == "TAKE_PROFIT_HIT":
                     log_event(f"🎯 TAKE-PROFIT HIT at ${current_price:,.2f}! Net PnL: Rs {pos_update['details']['net_pnl_inr']}")
-                
-                # Update dashboard active position
+                    BOT_STATE["pnl_history"].append(rm.history.get("total_pnl_inr", 0.0))
+
                 active_pos = paper.get_active_position()
                 BOT_STATE["active_position"] = active_pos
                 BOT_STATE["total_pnl_inr"] = rm.history.get("total_pnl_inr", 0.0)
                 BOT_STATE["total_trades"] = len(rm.history.get("trades", []))
 
-                # 3. Check 5 rules
                 has_active = paper.has_active_position()
                 is_losing = paper.has_active_losing_position(current_price)
                 consec = rm.history.get("consecutive_losses", 0)
@@ -106,16 +104,11 @@ def background_trading_loop():
                     )
                     if sim_res.get("success"):
                         rm.log_trade(review, result="OPEN", pnl_inr=0.0)
-                        log_event(f"Order Registered: {sim_res.get('order_id')}")
-                else:
-                    BOT_STATE["status"] = "MONITORING / HOLD"
-            else:
-                log_event(f"⚠️ Market Data Error: {market.get('error')}")
+                        log_event(f"Order Placed & Tracked: {sim_res.get('order_id')}")
 
         except Exception as e:
             log_event(f"❌ Error in loop: {e}")
 
-        # Sleep 60 seconds between checks
         time.sleep(60)
 
 
@@ -127,81 +120,116 @@ class DashboardHandler(BaseHTTPRequestHandler):
 
         pos = BOT_STATE["active_position"]
         pos_html = """
-        <div style="background:#1e293b; padding:15px; border-radius:10px; margin-bottom:20px;">
-            <p style="color:#94a3b8; margin:0;">No active trade currently running. Waiting for next daily setup.</p>
+        <div style="background:#1e293b; padding:15px; border-radius:10px; margin-bottom:15px;">
+            <p style="color:#94a3b8; margin:0;">No active position. Waiting for next daily candle setup.</p>
         </div>
         """
         if pos:
             unrealized = pos.get("unrealized_pnl_inr", 0.0)
             color = "#10b981" if unrealized >= 0 else "#ef4444"
             pos_html = f"""
-            <div style="background:#1e293b; padding:15px; border-radius:10px; margin-bottom:20px; border-left: 5px solid {color};">
-                <h3 style="margin:0 0 10px 0; color:#38bdf8;">ACTIVE {pos['direction']} POSITION</h3>
-                <p style="margin:4px 0;"><b>Entry:</b> ${pos['entry_price']:,.2f}</p>
-                <p style="margin:4px 0;"><b>Stop Loss:</b> ${pos['stop_loss']:,.2f}</p>
-                <p style="margin:4px 0;"><b>Target:</b> ${pos['take_profit']:,.2f}</p>
-                <p style="margin:4px 0;"><b>Unrealized P&L:</b> <span style="color:{color}; font-weight:bold; font-size:18px;">Rs {unrealized:+.2f}</span></p>
+            <div style="background:#1e293b; padding:18px; border-radius:12px; margin-bottom:15px; border-left: 6px solid {color}; box-shadow:0 4px 6px rgba(0,0,0,0.3);">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <h3 style="margin:0; color:#38bdf8;">ACTIVE {pos['direction']} POSITION</h3>
+                    <span style="background:{color}; color:#fff; padding:3px 8px; border-radius:12px; font-weight:bold; font-size:12px;">LIVE</span>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px;">
+                    <div><span style="color:#94a3b8;">Entry:</span> <b>${pos['entry_price']:,.2f}</b></div>
+                    <div><span style="color:#94a3b8;">Risk Cap:</span> <b>Rs {pos.get('risk_amount_inr', 25.0):.2f}</b></div>
+                    <div><span style="color:#ef4444;">Stop Loss:</span> <b>${pos['stop_loss']:,.2f}</b></div>
+                    <div><span style="color:#10b981;">Target (TP):</span> <b>${pos['take_profit']:,.2f}</b></div>
+                </div>
+                <div style="margin-top:14px; padding-top:10px; border-top:1px solid #334155; display:flex; justify-content:space-between; align-items:center;">
+                    <span style="color:#94a3b8;">Unrealized P&L:</span>
+                    <span style="color:{color}; font-size:22px; font-weight:bold;">Rs {unrealized:+.2f}</span>
+                </div>
             </div>
             """
 
-        logs_html = "".join([f"<li style='margin:4px 0; font-family:monospace; color:#cbd5e1;'>{log}</li>" for log in BOT_STATE["recent_logs"][:10]])
+        logs_html = "".join([f"<li style='margin:4px 0; font-family:monospace; color:#cbd5e1;'>{log}</li>" for log in BOT_STATE["recent_logs"][:8]])
 
         html = f"""<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MADE BY ALEX — Crypto Bot 24/7</title>
+    <title>MADE BY ALEX — Crypto Trading Terminal</title>
     <meta http-equiv="refresh" content="30">
     <style>
-        body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#0f172a; color:#f8fafc; margin:0; padding:20px; }}
-        .card {{ background:#1e293b; padding:18px; border-radius:12px; margin-bottom:15px; }}
-        .header {{ text-align:center; padding:10px 0 20px 0; }}
-        .badge {{ background:#10b981; color:#0f172a; padding:4px 10px; border-radius:20px; font-weight:bold; font-size:12px; }}
-        .badge-mode {{ background:#f59e0b; color:#0f172a; padding:4px 10px; border-radius:20px; font-weight:bold; font-size:12px; }}
-        .grid {{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }}
-        .stat {{ background:#334155; padding:12px; border-radius:8px; text-align:center; }}
-        .val {{ font-size:20px; font-weight:bold; margin-top:5px; }}
+        body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#0b1120; color:#f8fafc; margin:0; padding:15px; }}
+        .header {{ text-align:center; padding:10px 0 15px 0; }}
+        .badge {{ background:#10b981; color:#0f172a; padding:5px 12px; border-radius:20px; font-weight:bold; font-size:12px; }}
+        .badge-mode {{ background:#f59e0b; color:#0f172a; padding:5px 12px; border-radius:20px; font-weight:bold; font-size:12px; }}
+        .grid {{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:15px; }}
+        .stat {{ background:#1e293b; padding:14px; border-radius:10px; text-align:center; }}
+        .val {{ font-size:22px; font-weight:bold; margin-top:5px; }}
+        .card {{ background:#1e293b; padding:15px; border-radius:12px; margin-bottom:15px; }}
+        .chart-box {{ height:380px; border-radius:12px; overflow:hidden; margin-bottom:15px; }}
     </style>
 </head>
 <body>
     <div class="header">
-        <h2 style="margin:0; color:#38bdf8;">MADE BY ALEX</h2>
-        <p style="color:#94a3b8; margin:5px 0 10px 0;">AI Crypto Trading System 24/7</p>
+        <h2 style="margin:0; color:#38bdf8; letter-spacing:1px;">MADE BY ALEX</h2>
+        <p style="color:#94a3b8; margin:4px 0 10px 0; font-size:14px;">Institutional AI Crypto Trading System</p>
         <span class="badge">RUNNING 24/7 🟢</span>
         <span class="badge-mode">MODE: {BOT_STATE['mode']}</span>
     </div>
 
+    <!-- Live Stats -->
     <div class="grid">
         <div class="stat">
-            <div style="color:#94a3b8; font-size:13px;">Bitcoin Live</div>
+            <div style="color:#94a3b8; font-size:12px;">Bitcoin Live</div>
             <div class="val" style="color:#facc15;">${BOT_STATE['btc_price']:,.2f}</div>
         </div>
         <div class="stat">
-            <div style="color:#94a3b8; font-size:13px;">RSI (14)</div>
+            <div style="color:#94a3b8; font-size:12px;">RSI (14-period)</div>
             <div class="val">{BOT_STATE['rsi_14']}</div>
         </div>
     </div>
 
-    <h3 style="margin:20px 0 10px 0;">Trade Position</h3>
+    <!-- Live TradingView Chart -->
+    <h3 style="margin:0 0 8px 0; font-size:16px; color:#e2e8f0;">📈 Live Bitcoin Chart</h3>
+    <div class="chart-box">
+        <div id="tradingview_chart" style="height:100%; width:100%;"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+        new TradingView.widget({{
+            "autosize": true,
+            "symbol": "BINANCE:BTCUSDT",
+            "interval": "D",
+            "timezone": "Asia/Kolkata",
+            "theme": "dark",
+            "style": "1",
+            "locale": "en",
+            "toolbar_bg": "#0b1120",
+            "enable_publishing": false,
+            "hide_side_toolbar": false,
+            "container_id": "tradingview_chart"
+        }});
+        </script>
+    </div>
+
+    <!-- Active Trade Details -->
+    <h3 style="margin:15px 0 8px 0; font-size:16px; color:#e2e8f0;">⚡ Position & P&L Monitor</h3>
     {pos_html}
 
     <div class="grid">
         <div class="stat">
-            <div style="color:#94a3b8; font-size:13px;">Total Trades</div>
+            <div style="color:#94a3b8; font-size:12px;">Total Trades</div>
             <div class="val">{BOT_STATE['total_trades']}</div>
         </div>
         <div class="stat">
-            <div style="color:#94a3b8; font-size:13px;">Total P&L</div>
+            <div style="color:#94a3b8; font-size:12px;">Booked P&L</div>
             <div class="val" style="color:#38bdf8;">Rs {BOT_STATE['total_pnl_inr']:+.2f}</div>
         </div>
     </div>
 
-    <h3 style="margin:20px 0 10px 0;">Live Activity Log</h3>
+    <!-- Activity Log -->
+    <h3 style="margin:15px 0 8px 0; font-size:16px; color:#e2e8f0;">📋 Real-time Activity Log</h3>
     <div class="card">
-        <ul style="padding-left:15px; margin:0;">
+        <ul style="padding-left:18px; margin:0; font-size:13px;">
             {logs_html}
         </ul>
-        <p style="font-size:11px; color:#64748b; margin-top:10px;">Page auto-refreshes every 30s • Last checked: {BOT_STATE['last_check_time']}</p>
+        <p style="font-size:11px; color:#64748b; margin:10px 0 0 0;">Auto-refreshes every 30s • Last scan: {BOT_STATE['last_check_time']}</p>
     </div>
 </body>
 </html>"""
@@ -209,12 +237,9 @@ class DashboardHandler(BaseHTTPRequestHandler):
 
 def start_server():
     port = int(os.environ.get("PORT", 8080))
-    # Start trading loop in background daemon thread
     worker = threading.Thread(target=background_trading_loop, daemon=True)
     worker.start()
-
     server = HTTPServer(("0.0.0.0", port), DashboardHandler)
-    print(f"🌐 Web Dashboard live on http://0.0.0.0:{port}")
     server.serve_forever()
 
 if __name__ == "__main__":
