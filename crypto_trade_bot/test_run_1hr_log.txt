@@ -1,0 +1,94 @@
+[2026-10-20 18:09:30] ======================================================================
+[2026-10-20 18:09:30] 🚀 STARTING 1-HOUR CONTROLLED DEMO TRADING TEST
+[2026-10-20 18:09:30] Project: MADE BY ALEX — AI Crypto Trading System
+[2026-10-20 18:09:30] Target Duration: 3600 seconds (60 mins) | Interval: 60s
+[2026-10-20 18:09:30] ======================================================================
+[2026-10-20 18:09:30] 🔒 HARD SAFETY VERIFICATION: PASSED
+[2026-10-20 18:09:30]    • config.TRADING_MODE: DEMO
+[2026-10-20 18:09:30]    • OrderExecutor.mode : DEMO
+[2026-10-20 18:09:30]    • Delta API Order Execution: DISABLED (Zero real orders possible)
+[2026-10-20 18:09:30]    • Simulation Layer   : PaperTradingEngine Active
+[2026-10-20 18:09:30] ⏱️ Test officially started at: 2026-10-20 18:09:30
+[2026-10-20 18:09:30] ----------------------------------------------------------------------
+[2026-10-20 18:09:30] Cycle 01 [0s] | BTC: $81,502.01 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.15)
+[2026-10-20 18:10:30] Cycle 02 [60s] | BTC: $81,592.01 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs -0.18)
+[2026-10-20 18:11:30] Cycle 03 [120s] | BTC: $81,585.39 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs -0.16)
+[2026-10-20 18:12:30] Cycle 04 [180s] | BTC: $81,645.34 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs -0.38)
+[2026-10-20 18:13:30] Cycle 05 [240s] | BTC: $81,664.01 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs -0.45)
+[2026-10-20 18:14:30] Cycle 06 [300s] | BTC: $81,669.09 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs -0.47)
+[2026-10-20 18:15:30] Cycle 07 [360s] | BTC: $81,754.00 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs -0.78)
+[2026-10-20 18:16:30] Cycle 08 [420s] | BTC: $81,650.00 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs -0.40)
+[2026-10-20 18:17:30] Cycle 09 [480s] | BTC: $81,681.49 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs -0.51)
+[2026-10-20 18:18:30] Cycle 10 [540s] | BTC: $81,650.00 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs -0.40)
+[2026-10-20 18:19:30] Cycle 11 [600s] | BTC: $81,648.00 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs -0.39)
+[2026-10-20 18:20:30] Cycle 12 [660s] | BTC: $81,598.01 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs -0.21)
+[2026-10-20 18:21:30] Cycle 13 [720s] | BTC: $81,599.25 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs -0.21)
+[2026-10-20 18:22:30] Cycle 14 [780s] | BTC: $81,683.66 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs -0.52)
+[2026-10-20 18:23:30] Cycle 15 [840s] | BTC: $81,696.93 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs -0.57)
+[2026-10-20 18:24:30] Cycle 16 [900s] | BTC: $81,684.49 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs -0.52)
+[2026-10-20 18:25:31] Cycle 17 [960s] | BTC: $81,670.19 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs -0.47)
+[2026-10-20 18:26:31] Cycle 18 [1020s] | BTC: $81,674.00 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs -0.49)
+[2026-10-20 18:27:30] Cycle 19 [1080s] | BTC: $81,646.01 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs -0.38)
+[2026-10-20 18:28:30] Cycle 20 [1140s] | BTC: $81,634.38 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs -0.34)
+[2026-10-20 18:29:30] Cycle 21 [1200s] | BTC: $81,610.01 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs -0.25)
+[2026-10-20 18:30:30] Cycle 22 [1260s] | BTC: $81,575.49 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs -0.12)
+[2026-10-20 18:31:30] Cycle 23 [1320s] | BTC: $81,544.91 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs -0.01)
+[2026-10-20 18:32:30] Cycle 24 [1380s] | BTC: $81,436.01 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.39)
+[2026-10-20 18:33:30] Cycle 25 [1440s] | BTC: $81,481.91 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.22)
+[2026-10-20 18:34:30] Cycle 26 [1500s] | BTC: $81,494.00 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.18)
+[2026-10-20 18:35:30] Cycle 27 [1560s] | BTC: $81,469.62 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.27)
+[2026-10-20 18:36:30] Cycle 28 [1620s] | BTC: $81,442.01 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.37)
+[2026-10-20 18:37:30] Cycle 29 [1680s] | BTC: $81,480.00 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.23)
+[2026-10-20 18:38:30] Cycle 30 [1740s] | BTC: $81,464.01 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.29)
+[2026-10-20 18:39:30] Cycle 31 [1800s] | BTC: $81,436.01 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.39)
+[2026-10-20 18:40:30] Cycle 32 [1860s] | BTC: $81,478.83 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.23)
+[2026-10-20 18:41:30] Cycle 33 [1920s] | BTC: $81,498.00 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.16)
+[2026-10-20 18:42:30] Cycle 34 [1980s] | BTC: $81,476.01 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.24)
+[2026-10-20 18:43:30] Cycle 35 [2040s] | BTC: $81,454.00 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.32)
+[2026-10-20 18:44:30] Cycle 36 [2100s] | BTC: $81,430.01 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.41)
+[2026-10-20 18:45:30] Cycle 37 [2160s] | BTC: $81,429.96 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.41)
+[2026-10-20 18:46:30] Cycle 38 [2220s] | BTC: $81,473.61 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.25)
+[2026-10-20 18:47:30] Cycle 39 [2280s] | BTC: $81,496.00 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.17)
+[2026-10-20 18:48:30] Cycle 40 [2340s] | BTC: $81,480.01 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.23)
+[2026-10-20 18:49:30] Cycle 41 [2400s] | BTC: $81,506.61 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.13)
+[2026-10-20 18:50:31] Cycle 42 [2460s] | BTC: $81,522.05 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.07)
+[2026-10-20 18:51:31] Cycle 43 [2520s] | BTC: $81,496.00 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.17)
+[2026-10-20 18:52:30] Cycle 44 [2580s] | BTC: $81,489.35 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.19)
+[2026-10-20 18:53:30] Cycle 45 [2640s] | BTC: $81,513.70 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.10)
+[2026-10-20 18:54:30] Cycle 46 [2700s] | BTC: $81,504.01 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.14)
+[2026-10-20 18:55:30] Cycle 47 [2760s] | BTC: $81,476.01 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.24)
+[2026-10-20 18:56:30] Cycle 48 [2820s] | BTC: $81,456.00 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.32)
+[2026-10-20 18:57:30] Cycle 49 [2880s] | BTC: $81,429.88 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.41)
+[2026-10-20 18:58:30] Cycle 50 [2940s] | BTC: $81,421.65 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.44)
+[2026-10-20 18:59:30] Cycle 51 [3000s] | BTC: $81,439.40 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.38)
+[2026-10-20 19:00:30] Cycle 52 [3060s] | BTC: $81,467.77 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.27)
+[2026-10-20 19:01:30] Cycle 53 [3120s] | BTC: $81,408.01 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.49)
+[2026-10-20 19:02:30] Cycle 54 [3180s] | BTC: $81,372.00 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.63)
+[2026-10-20 19:03:31] Cycle 55 [3240s] | BTC: $81,381.16 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.59)
+[2026-10-20 19:04:31] Cycle 56 [3300s] | BTC: $81,404.91 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.50)
+[2026-10-20 19:05:32] Cycle 57 [3360s] | BTC: $81,389.10 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs +0.56)
+[2026-10-20 19:06:30] Cycle 58 [3420s] | BTC: $81,620.00 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs -0.29)
+[2026-10-20 19:07:30] Cycle 59 [3480s] | BTC: $81,672.01 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs -0.48)
+[2026-10-20 19:08:30] Cycle 60 [3540s] | BTC: $81,674.00 | RSI: 47.72 | Trend: BEARISH | Verdict: SKIP (Active position already open in Bitcoin. Single market rule enforces max 1 trade at a time.) | Pos: Active SHORT (Unrealized PnL: Rs -0.49)
+[2026-10-20 19:09:30] 
+⏰ 60-minute test duration reached (3600s elapsed). Stopping test loop.
+[2026-10-20 19:09:30] ======================================================================
+[2026-10-20 19:09:30] 🏁 1-HOUR CONTROLLED DEMO TEST COMPLETED SUCCESSFULLY
+[2026-10-20 19:09:30] Start Time         : 2026-10-20 18:09:30
+[2026-10-20 19:09:30] End Time           : 2026-10-20 19:09:30
+[2026-10-20 19:09:30] Total Runtime      : 3600.0s (60.0 minutes)
+[2026-10-20 19:09:30] Total Checks (Ticks): 60
+[2026-10-20 19:09:30] TAKE Verdicts      : 0
+[2026-10-20 19:09:30] SKIP Verdicts      : 60
+[2026-10-20 19:09:30] Active Position    : YES
+[2026-10-20 19:09:30]    • Direction     : SHORT
+[2026-10-20 19:09:30]    • Entry Price   : $81,542.01
+[2026-10-20 19:09:30]    • Stop Loss     : $83,466.83
+[2026-10-20 19:09:30]    • Take Profit   : $78,654.78
+[2026-10-20 19:09:30]    • Unrealized PnL: Rs -0.49
+[2026-10-20 19:09:30] Realized P&L       : Rs +0.00
+[2026-10-20 19:09:30] Simulated Fees     : Rs 0.15
+[2026-10-20 19:09:30] Errors / Timeouts  : 0
+[2026-10-20 19:09:30] Real Orders Placed : 0 (Hard safety guard confirmed)
+[2026-10-20 19:09:30] CONCLUSION         : PASS
+[2026-10-20 19:09:30] ======================================================================
