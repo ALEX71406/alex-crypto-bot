@@ -84,6 +84,22 @@ class RiskManager:
             return False, "Rule 3 FAIL: Already in a losing trade. Never add to a loser."
         return True, "Rule 3 OK"
 
+    def record_trade_result(self, result_type, pnl_inr, notes=""):
+        """Record trade result: 'WIN' or 'LOSS' and update circuit breaker stats"""
+        now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        if result_type.upper() == "LOSS":
+            self.history["consecutive_losses"] = self.history.get("consecutive_losses", 0) + 1
+            self.history["losses"] = self.history.get("losses", 0) + 1
+            if self.history["consecutive_losses"] >= config.MAX_CONSECUTIVE_LOSSES:
+                lockout_time = datetime.now() + timedelta(days=config.LOCKOUT_DAYS)
+                self.history["lockout_until"] = lockout_time.isoformat()
+        elif result_type.upper() == "WIN":
+            self.history["consecutive_losses"] = 0
+            self.history["wins"] = self.history.get("wins", 0) + 1
+
+        self.history["total_pnl_inr"] = round(self.history.get("total_pnl_inr", 0.0) + pnl_inr, 2)
+        self._save_history()
+
     def log_trade(self, trade_details, result="OPEN", pnl_inr=0.0):
         """
         Logs a trade into JSON and CSV ledger.
