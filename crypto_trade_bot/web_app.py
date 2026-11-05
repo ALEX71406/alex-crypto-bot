@@ -1,11 +1,11 @@
 """
 Institutional-Grade AI Crypto Trading Terminal & Live Web Server
+Theme: Apple VisionOS / macOS Liquid Glass Light Mode
 Features:
-- Live TradingView 24/7 Charts
-- Multi-Indicator Technical Analysis Monitor (RSI, MACD, EMA Stack, ATR)
+- Premium Frosted Glassmorphism (Liquid Glass)
+- Ambient Mesh Gradients
 - Real-time PnL & Position Tracking
-- Paper Trading Execution Simulator with auto-recovery
-- Modern Glassmorphism High-Tech UI
+- Live TradingView Chart
 """
 import os
 import sys
@@ -173,58 +173,58 @@ class DashboardHandler(BaseHTTPRequestHandler):
         pos = BOT_STATE["active_position"]
         if pos:
             unrealized = pos.get("unrealized_pnl_inr", 0.0)
-            color = "#10b981" if unrealized >= 0 else "#ef4444"
-            direction_color = "#10b981" if pos['direction'] == 'LONG' else "#f43f5e"
+            color = "#059669" if unrealized >= 0 else "#dc2626"
+            direction_color = "#059669" if pos['direction'] == 'LONG' else "#e11d48"
             pos_html = f"""
-            <div style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%); padding:22px; border-radius:16px; margin-bottom:20px; border: 1px solid rgba(255,255,255,0.08); border-left: 6px solid {direction_color}; box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
+            <div class="liquid-card active-pos-card" style="border-left: 6px solid {direction_color};">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                     <div>
-                        <span style="font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#94a3b8; font-weight:600;">Active Trade</span>
+                        <span style="font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#64748b; font-weight:700;">Active Position</span>
                         <h3 style="margin:2px 0 0 0; font-size:20px; color:{direction_color}; font-weight:800;">{pos['direction']} BITCOIN</h3>
                     </div>
-                    <span style="background:{direction_color}; color:#fff; padding:4px 12px; border-radius:20px; font-weight:700; font-size:11px; letter-spacing:0.5px;">RUNNING LIVE</span>
+                    <span class="badge" style="background:{direction_color}18; color:{direction_color}; border-color:{direction_color}44;">● LIVE ORDER</span>
                 </div>
-                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:14px; margin-top:16px; background:rgba(0,0,0,0.25); padding:14px; border-radius:12px;">
-                    <div><span style="color:#94a3b8; font-size:11px; display:block;">Entry Price</span> <b style="font-size:15px; color:#f8fafc;">${pos['entry_price']:,.2f}</b></div>
-                    <div><span style="color:#94a3b8; font-size:11px; display:block;">Purchase Size</span> <b style="font-size:15px; color:#facc15;">Rs {pos.get('position_inr', config.MAX_ORDER_VALUE_INR):,.2f}</b></div>
-                    <div><span style="color:#94a3b8; font-size:11px; display:block;">Stop Loss</span> <b style="font-size:15px; color:#f87171;">${pos['stop_loss']:,.2f}</b></div>
-                    <div><span style="color:#94a3b8; font-size:11px; display:block;">Take Profit</span> <b style="font-size:15px; color:#4ade80;">${pos['take_profit']:,.2f}</b></div>
+                <div class="pos-grid">
+                    <div><span class="sub-label">Entry Price</span> <b class="val-text">${pos['entry_price']:,.2f}</b></div>
+                    <div><span class="sub-label">Purchase Size</span> <b class="val-text" style="color:#d97706;">Rs {pos.get('position_inr', config.MAX_ORDER_VALUE_INR):,.2f}</b></div>
+                    <div><span class="sub-label">Stop Loss</span> <b class="val-text" style="color:#dc2626;">${pos['stop_loss']:,.2f}</b></div>
+                    <div><span class="sub-label">Take Profit</span> <b class="val-text" style="color:#059669;">${pos['take_profit']:,.2f}</b></div>
                 </div>
-                <div style="margin-top:16px; padding-top:12px; border-top:1px solid rgba(255,255,255,0.06); display:flex; justify-content:space-between; align-items:center;">
-                    <span style="color:#94a3b8; font-size:13px; font-weight:500;">Unrealized P&L:</span>
-                    <span style="color:{color}; font-size:26px; font-weight:800; text-shadow: 0 0 20px {color}44;">Rs {unrealized:+.2f}</span>
+                <div style="margin-top:16px; padding-top:14px; border-top:1px solid rgba(0,0,0,0.06); display:flex; justify-content:space-between; align-items:center;">
+                    <span style="color:#475569; font-size:13px; font-weight:600;">Unrealized P&L:</span>
+                    <span style="color:{color}; font-size:26px; font-weight:800;">Rs {unrealized:+.2f}</span>
                 </div>
             </div>
             """
         else:
             pos_html = """
-            <div style="background: rgba(30, 41, 59, 0.4); padding:20px; border-radius:14px; margin-bottom:20px; border: 1px dashed rgba(255,255,255,0.1); text-align:center;">
-                <span style="font-size:24px; display:block; margin-bottom:6px;">⏳</span>
-                <p style="color:#94a3b8; margin:0; font-size:14px; font-weight:500;">No active position at the moment. Quant bot is scanning BTC candles for high-probability setups...</p>
+            <div class="liquid-card" style="text-align:center; padding:28px 20px; margin-bottom:22px;">
+                <span style="font-size:28px; display:inline-block; margin-bottom:8px;">⏳</span>
+                <p style="color:#475569; margin:0; font-size:14px; font-weight:600;">No active trade right now. Scanning live BTC candles for high-probability setups...</p>
             </div>
             """
 
         logs_html = "".join([f"<li class='log-item'>{log}</li>" for log in BOT_STATE["recent_logs"][:8]])
         if not logs_html:
-            logs_html = "<li class='log-item' style='color:#64748b;'>Waiting for first scan telemetry...</li>"
+            logs_html = "<li class='log-item' style='color:#94a3b8;'>Waiting for telemetry data...</li>"
 
         rm = GLOBAL_RM or RiskManager()
         trades = rm.history.get("trades", [])
         trades_rows = ""
         for t in reversed(trades[-10:]):
             pnl_val = t.get("pnl_inr", 0.0)
-            res_color = "#10b981" if pnl_val > 0 or t.get("result") == "WIN" else ("#ef4444" if pnl_val < 0 or t.get("result") == "LOSS" else "#38bdf8")
+            res_color = "#059669" if pnl_val > 0 or t.get("result") == "WIN" else ("#dc2626" if pnl_val < 0 or t.get("result") == "LOSS" else "#0284c7")
             trades_rows += f"""
             <tr>
-                <td style="color:#cbd5e1;">{t.get('date', '').split(' ')[0]}</td>
-                <td style="font-weight:700; color:{'#10b981' if t.get('direction') == 'LONG' else '#ef4444'};">{t.get('direction', '')}</td>
-                <td>${t.get('entry', 0):,.1f}</td>
-                <td><span style="background:{res_color}22; color:{res_color}; padding:3px 10px; border-radius:12px; font-weight:700; font-size:11px; border:1px solid {res_color}44;">{t.get('result', '')}</span></td>
+                <td style="color:#475569; font-weight:600;">{t.get('date', '').split(' ')[0]}</td>
+                <td style="font-weight:700; color:{'#059669' if t.get('direction') == 'LONG' else '#dc2626'};">{t.get('direction', '')}</td>
+                <td style="font-weight:600;">${t.get('entry', 0):,.1f}</td>
+                <td><span style="background:{res_color}14; color:{res_color}; padding:4px 10px; border-radius:12px; font-weight:700; font-size:11px; border:1px solid {res_color}33;">{t.get('result', '')}</span></td>
                 <td style="font-weight:700; color:{res_color};">Rs {pnl_val:+.2f}</td>
             </tr>
             """
         if not trades_rows:
-            trades_rows = "<tr><td colspan='5' style='text-align:center; padding:20px; color:#64748b;'>No trade history yet. System restarted with fresh Rs 5,000 capital.</td></tr>"
+            trades_rows = "<tr><td colspan='5' style='text-align:center; padding:24px; color:#64748b; font-weight:500;'>No trade history yet. System restarted with fresh Rs 5,000 capital.</td></tr>"
 
         current_balance = config.ACCOUNT_SIZE_INR + BOT_STATE['total_pnl_inr']
 
@@ -233,143 +233,194 @@ class DashboardHandler(BaseHTTPRequestHandler):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MADE BY ALEX — AI Crypto Terminal</title>
+    <title>MADE BY ALEX — Apple Liquid Glass Terminal</title>
     <meta http-equiv="refresh" content="30">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {{
-            --bg-dark: #07090e;
-            --card-bg: rgba(18, 24, 38, 0.7);
-            --card-border: rgba(255, 255, 255, 0.08);
-            --primary: #38bdf8;
-            --success: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
+            --liquid-bg: rgba(255, 255, 255, 0.65);
+            --liquid-border: rgba(255, 255, 255, 0.85);
+            --liquid-inner-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.9), 0 10px 30px rgba(0, 0, 0, 0.05);
+            --text-heading: #0f172a;
+            --text-body: #334155;
+            --text-muted: #64748b;
+            --accent-blue: #0284c7;
+            --accent-green: #059669;
+            --accent-purple: #7c3aed;
+            --accent-amber: #d97706;
         }}
         * {{ box-sizing: border-box; }}
         body {{
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-dark);
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.08) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.08) 0px, transparent 50%);
-            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 50%, #dbeafe 100%);
+            background-attachment: fixed;
+            color: var(--text-heading);
             margin: 0;
             padding: 24px 16px;
             min-height: 100vh;
         }}
-        .container {{ max-width: 1200px; margin: 0 auto; }}
+        .container {{ max-width: 1180px; margin: 0 auto; }}
+
+        /* Apple Liquid Glass Container */
+        .liquid-card {{
+            background: var(--liquid-bg);
+            border: 1px solid var(--liquid-border);
+            border-radius: 24px;
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            box-shadow: var(--liquid-inner-shadow);
+            padding: 22px;
+            margin-bottom: 22px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }}
+        .liquid-card:hover {{
+            transform: translateY(-2px);
+            box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 1), 0 16px 36px rgba(0, 0, 0, 0.08);
+        }}
+
         .header {{
             text-align: center;
-            padding: 24px 20px;
-            background: linear-gradient(180deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.3) 100%);
-            border: 1px solid var(--card-border);
-            border-radius: 18px;
-            backdrop-filter: blur(16px);
-            margin-bottom: 22px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            padding: 28px 20px;
         }}
         .logo-title {{
-            font-size: 30px;
+            font-size: 32px;
             font-weight: 800;
-            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #0284c7 0%, #4f46e5 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin: 0;
-            letter-spacing: 1.5px;
         }}
-        .subtitle {{ color: var(--text-muted); font-size: 13px; margin: 6px 0 16px 0; font-weight: 500; }}
-        .badges {{ display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }}
+        .subtitle {{
+            color: var(--text-muted);
+            font-size: 13px;
+            margin: 6px 0 16px 0;
+            font-weight: 600;
+        }}
+        .badges {{
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }}
         .badge {{
-            background: rgba(16, 185, 129, 0.12);
-            color: #34d399;
-            border: 1px solid rgba(52, 211, 153, 0.3);
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            color: #047857;
             padding: 6px 14px;
             border-radius: 9999px;
             font-weight: 700;
             font-size: 11px;
-            letter-spacing: 0.5px;
             display: inline-flex;
             align-items: center;
             gap: 6px;
         }}
         .badge-mode {{
-            background: rgba(245, 158, 11, 0.12);
-            color: #fbbf24;
-            border: 1px solid rgba(251, 191, 36, 0.3);
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            color: #b45309;
             padding: 6px 14px;
             border-radius: 9999px;
             font-weight: 700;
             font-size: 11px;
-            letter-spacing: 0.5px;
         }}
-        .grid-4 {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-bottom: 22px; }}
-        .card {{
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            padding: 20px;
-            border-radius: 16px;
-            backdrop-filter: blur(12px);
-            transition: all 0.25s ease;
+
+        .grid-4 {{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 16px;
+            margin-bottom: 22px;
         }}
-        .card:hover {{
-            transform: translateY(-3px);
-            border-color: rgba(255, 255, 255, 0.18);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+        .card-label {{
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
         }}
-        .card-label {{ font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }}
-        .card-val {{ font-size: 26px; font-weight: 800; margin: 8px 0 4px 0; letter-spacing: -0.5px; }}
-        .card-sub {{ font-size: 11px; color: #64748b; font-weight: 500; }}
+        .card-val {{
+            font-size: 26px;
+            font-weight: 800;
+            margin: 8px 0 4px 0;
+            letter-spacing: -0.5px;
+        }}
+        .card-sub {{
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }}
+
         .chart-box {{
             height: 440px;
-            border-radius: 16px;
+            border-radius: 24px;
             overflow: hidden;
-            border: 1px solid var(--card-border);
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid var(--liquid-border);
+            box-shadow: var(--liquid-inner-shadow);
             margin-bottom: 22px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }}
         .section-title {{
             font-size: 16px;
-            font-weight: 700;
-            color: #e2e8f0;
-            margin: 22px 0 12px 0;
+            font-weight: 800;
+            color: var(--text-heading);
+            margin: 24px 0 12px 0;
             display: flex;
             align-items: center;
             gap: 8px;
         }}
+
+        .pos-grid {{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 14px;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 14px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }}
+        .sub-label {{ color: var(--text-muted); font-size: 11px; display: block; font-weight: 600; }}
+        .val-text {{ font-size: 15px; color: var(--text-heading); font-weight: 700; }}
+
         table {{ width: 100%; border-collapse: collapse; }}
         th {{
             text-align: left;
             color: var(--text-muted);
             font-size: 11px;
             padding: 12px 10px;
-            border-bottom: 1px solid var(--card-border);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
             text-transform: uppercase;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.6px;
+            font-weight: 700;
         }}
-        td {{ padding: 14px 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.04); font-size: 13px; }}
+        td {{
+            padding: 14px 10px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            font-size: 13px;
+            color: var(--text-body);
+        }}
         .btn-download {{
             background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
             color: #fff;
-            padding: 6px 14px;
-            border-radius: 8px;
+            padding: 7px 16px;
+            border-radius: 12px;
             font-size: 12px;
             font-weight: 700;
             text-decoration: none;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
             transition: opacity 0.2s;
-            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
         }}
         .btn-download:hover {{ opacity: 0.9; }}
+
         .log-item {{
             font-family: 'JetBrains Mono', monospace;
             font-size: 12px;
-            padding: 8px 0;
-            color: #cbd5e1;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 9px 0;
+            color: #334155;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
             list-style: none;
         }}
         .pulse {{
@@ -390,44 +441,44 @@ class DashboardHandler(BaseHTTPRequestHandler):
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
-        <div class="header">
+        <!-- Header in Apple Liquid Glass -->
+        <div class="liquid-card header">
             <h1 class="logo-title">MADE BY ALEX</h1>
-            <p class="subtitle">Institutional AI Crypto Trading Terminal & Quant Risk Engine</p>
+            <p class="subtitle">Institutional AI Crypto Terminal & Quant Engine</p>
             <div class="badges">
-                <span class="badge"><span class="pulse"></span> 24/7 CLOUD ACTIVE</span>
+                <span class="badge"><span class="pulse"></span> 24/7 ACTIVE CLOUD</span>
                 <span class="badge-mode">MODE: {BOT_STATE['mode']}</span>
-                <span class="badge" style="background:rgba(56, 189, 248, 0.12); color:#38bdf8; border-color:rgba(56, 189, 248, 0.3);">
+                <span class="badge" style="color:#0284c7;">
                     SCORE: {BOT_STATE['composite_score']:+d} ({BOT_STATE['macd_signal']})
                 </span>
             </div>
         </div>
 
-        <!-- 4 Key Capital & Portfolio Cards -->
+        <!-- 4 Capital & Portfolio Cards -->
         <div class="grid-4">
-            <div class="card" style="border-top: 3px solid #38bdf8;">
+            <div class="liquid-card">
                 <div class="card-label">Allocated Capital</div>
-                <div class="card-val" style="color: #38bdf8;">Rs {config.ACCOUNT_SIZE_INR:,.2f}</div>
+                <div class="card-val" style="color: #0284c7;">Rs {config.ACCOUNT_SIZE_INR:,.2f}</div>
                 <div class="card-sub">Base allocated principal</div>
             </div>
-            <div class="card" style="border-top: 3px solid #10b981;">
+            <div class="liquid-card">
                 <div class="card-label">Current Account Balance</div>
-                <div class="card-val" style="color: #10b981;">Rs {current_balance:,.2f}</div>
+                <div class="card-val" style="color: #059669;">Rs {current_balance:,.2f}</div>
                 <div class="card-sub">Capital + Net Realized PnL</div>
             </div>
-            <div class="card" style="border-top: 3px solid #f59e0b;">
+            <div class="liquid-card">
                 <div class="card-label">Max Order Cap (30%)</div>
-                <div class="card-val" style="color: #f59e0b;">Rs {config.MAX_ORDER_VALUE_INR:,.0f}</div>
-                <div class="card-sub">Strict risk per single trade</div>
+                <div class="card-val" style="color: #d97706;">Rs {config.MAX_ORDER_VALUE_INR:,.0f}</div>
+                <div class="card-sub">Risk budget per trade</div>
             </div>
-            <div class="card" style="border-top: 3px solid #a855f7;">
+            <div class="liquid-card">
                 <div class="card-label">Bitcoin Live Price</div>
-                <div class="card-val" style="color: #facc15;">${BOT_STATE['btc_price']:,.2f}</div>
+                <div class="card-val" style="color: #4f46e5;">${BOT_STATE['btc_price']:,.2f}</div>
                 <div class="card-sub">RSI (14): {BOT_STATE['rsi_14']} • {BOT_STATE['trend']}</div>
             </div>
         </div>
 
-        <!-- Live TradingView Chart -->
+        <!-- TradingView Chart -->
         <div class="section-title">📊 Live BTC/USDT Market Chart</div>
         <div class="chart-box">
             <div id="tradingview_chart" style="height:100%; width:100%;"></div>
@@ -438,10 +489,10 @@ class DashboardHandler(BaseHTTPRequestHandler):
                 "symbol": "BINANCE:BTCUSDT",
                 "interval": "D",
                 "timezone": "Asia/Kolkata",
-                "theme": "dark",
+                "theme": "light",
                 "style": "1",
                 "locale": "en",
-                "toolbar_bg": "#0b1120",
+                "toolbar_bg": "#f0f4f8",
                 "enable_publishing": false,
                 "hide_side_toolbar": false,
                 "container_id": "tradingview_chart"
@@ -454,7 +505,7 @@ class DashboardHandler(BaseHTTPRequestHandler):
         {pos_html}
 
         <!-- Trade History Table -->
-        <div class="card" style="margin-bottom: 22px;">
+        <div class="liquid-card" style="margin-bottom: 22px;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
                 <div class="section-title" style="margin:0;">📜 Trade History & Performance</div>
                 <a href="/download/csv" class="btn-download">📥 Download CSV</a>
@@ -478,7 +529,7 @@ class DashboardHandler(BaseHTTPRequestHandler):
         </div>
 
         <!-- Real-time Activity Log -->
-        <div class="card">
+        <div class="liquid-card">
             <div class="section-title" style="margin:0 0 12px 0;">📡 Live Bot Scanner Logs</div>
             <ul style="padding:0; margin:0;">
                 {logs_html}
