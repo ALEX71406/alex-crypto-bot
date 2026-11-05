@@ -1,21 +1,6 @@
 {
-    "active_position": {
-        "order_id": "sim_1792499674",
-        "symbol": "BTCUSD",
-        "direction": "SHORT",
-        "entry_price": 81542.01,
-        "stop_loss": 83466.83,
-        "take_profit": 78654.78,
-        "risk_amount_inr": 25.0,
-        "position_size_inr": 300.0,
-        "reward_to_risk": "1.5 : 1",
-        "opened_at": "2026-10-20 18:04:34",
-        "entry_fee_inr": 0.15,
-        "total_fees_inr": 0.15,
-        "status": "OPEN",
-        "unrealized_pnl_inr": -0.88,
-        "last_price_checked": 81780.01,
-        "last_checked_at": "2026-10-20 19:16:54"
-    },
-    "closed_trades": []
+    "active_position":  null,
+    "closed_trades":  [
+
+                      ]
 }
