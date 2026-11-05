@@ -1,9 +1,10 @@
 """
 Institutional-Grade AI Crypto Trading Terminal & Live Web Server
-Theme: Apple Warm Cream & Frosted Latte Glass
+Theme: Apple Warm Cream & Frosted Latte Glass (UTF-8 Clean)
 Features:
-- Warm Matte Cream Background (Eye-friendly, zero glare)
-- Frosted Latte Glassmorphism
+- Clean SVG Icons (zero emoji corruption like dY"S)
+- 5 Cards: Capital, Total Net Profit (P&L), Current Balance, Max Order Cap, Bitcoin Price
+- Frosted Latte Glassmorphism & Eye-friendly Cream Background
 - Real-time PnL & Position Tracking
 - Live TradingView Chart
 """
@@ -60,7 +61,7 @@ def background_trading_loop():
     GLOBAL_PAPER = PaperTradingEngine(risk_manager=GLOBAL_RM)
     executor = OrderExecutor(paper_engine=GLOBAL_PAPER)
 
-    log_event("ðŸš€ 24/7 Cloud Trading Worker Active! Starting AI scanner...")
+    log_event("24/7 Cloud Trading Worker Active! Starting AI scanner...")
 
     while True:
         try:
@@ -77,10 +78,10 @@ def background_trading_loop():
 
                 pos_update = GLOBAL_PAPER.update_price(current_price)
                 if pos_update["event"] == "STOP_LOSS_HIT":
-                    log_event(f"ðŸ›‘ STOP-LOSS HIT at ${current_price:,.2f}! Net PnL: Rs {pos_update['details']['net_pnl_inr']}")
+                    log_event(f"STOP-LOSS HIT at ${current_price:,.2f}! Net PnL: Rs {pos_update['details']['net_pnl_inr']}")
                     BOT_STATE["pnl_history"].append(GLOBAL_RM.history.get("total_pnl_inr", 0.0))
                 elif pos_update["event"] == "TAKE_PROFIT_HIT":
-                    log_event(f"ðŸŽ¯ TAKE-PROFIT HIT at ${current_price:,.2f}! Net PnL: Rs {pos_update['details']['net_pnl_inr']}")
+                    log_event(f"TAKE-PROFIT HIT at ${current_price:,.2f}! Net PnL: Rs {pos_update['details']['net_pnl_inr']}")
                     BOT_STATE["pnl_history"].append(GLOBAL_RM.history.get("total_pnl_inr", 0.0))
 
                 active_pos = GLOBAL_PAPER.get_active_position()
@@ -101,7 +102,7 @@ def background_trading_loop():
                 )
 
                 if review["verdict"] == "TAKE":
-                    log_event(f"ðŸŒŸ VERDICT: TAKE | {review['direction']} BTC @ ${review['entry']:,.2f}")
+                    log_event(f"VERDICT: TAKE | {review['direction']} BTC @ ${review['entry']:,.2f}")
                     sim_res = executor.place_order(
                         direction=review["direction"],
                         entry_price=review["entry"],
@@ -115,7 +116,7 @@ def background_trading_loop():
                         log_event(f"Order Placed & Tracked: {sim_res.get('order_id')}")
 
         except Exception as e:
-            log_event(f"âŒ Error in loop: {e}")
+            log_event(f"Error in loop: {e}")
 
         time.sleep(60)
 
@@ -182,7 +183,7 @@ class DashboardHandler(BaseHTTPRequestHandler):
                         <span style="font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#78716c; font-weight:700;">Active Trade</span>
                         <h3 style="margin:2px 0 0 0; font-size:20px; color:{direction_color}; font-weight:800;">{pos['direction']} BITCOIN</h3>
                     </div>
-                    <span class="badge" style="background:{direction_color}18; color:{direction_color}; border-color:{direction_color}44;">â— LIVE ORDER</span>
+                    <span class="badge" style="background:{direction_color}18; color:{direction_color}; border-color:{direction_color}44;">● LIVE ORDER</span>
                 </div>
                 <div class="pos-grid">
                     <div><span class="sub-label">Entry Price</span> <b class="val-text">${pos['entry_price']:,.2f}</b></div>
@@ -199,8 +200,8 @@ class DashboardHandler(BaseHTTPRequestHandler):
         else:
             pos_html = """
             <div class="cream-card" style="text-align:center; padding:28px 20px; margin-bottom:22px;">
-                <span style="font-size:28px; display:inline-block; margin-bottom:8px;">â³</span>
-                <p style="color:#57534e; margin:0; font-size:14px; font-weight:600;">No active trade right now. Scanning live BTC candles for high-probability setups...</p>
+                <div style="font-size:15px; font-weight:700; color:#44403c; margin-bottom:4px;">No Active Trade Position</div>
+                <p style="color:#78716c; margin:0; font-size:13px; font-weight:500;">Scanning live BTC candles. Bot will enter when high-probability setup confirms.</p>
             </div>
             """
 
@@ -227,29 +228,27 @@ class DashboardHandler(BaseHTTPRequestHandler):
             trades_rows = "<tr><td colspan='5' style='text-align:center; padding:24px; color:#78716c; font-weight:500;'>No trade history yet. System restarted with fresh Rs 5,000 capital.</td></tr>"
 
         current_balance = config.ACCOUNT_SIZE_INR + BOT_STATE['total_pnl_inr']
+        pnl_val = BOT_STATE['total_pnl_inr']
+        pnl_color = "#15803d" if pnl_val >= 0 else "#b91c1c"
 
         html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MADE BY ALEX â€” Warm Cream Glass Terminal</title>
+    <title>MADE BY ALEX - AI Crypto Terminal</title>
     <meta http-equiv="refresh" content="30">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {{
-            --bg-warm: #f5f2eb;
-            --card-cream: rgba(255, 253, 250, 0.78);
-            --card-border: rgba(214, 208, 199, 0.7);
+            --bg-warm: #f6f3ed;
+            --card-cream: rgba(255, 253, 250, 0.85);
+            --card-border: rgba(214, 208, 199, 0.75);
             --text-heading: #292524;
             --text-body: #44403c;
             --text-muted: #78716c;
-            --accent-warm-blue: #0369a1;
-            --accent-green: #15803d;
-            --accent-amber: #b45309;
-            --accent-terracotta: #c2410c;
         }}
         * {{ box-sizing: border-box; }}
         body {{
@@ -263,18 +262,18 @@ class DashboardHandler(BaseHTTPRequestHandler):
             padding: 24px 16px;
             min-height: 100vh;
         }}
-        .container {{ max-width: 1180px; margin: 0 auto; }}
+        .container {{ max-width: 1200px; margin: 0 auto; }}
 
         /* Apple Frosted Latte / Cream Glass Container */
         .cream-card {{
             background: var(--card-cream);
             border: 1px solid var(--card-border);
-            border-radius: 22px;
+            border-radius: 20px;
             backdrop-filter: blur(20px) saturate(140%);
             -webkit-backdrop-filter: blur(20px) saturate(140%);
             box-shadow: 0 8px 24px -4px rgba(41, 37, 36, 0.05), inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
-            padding: 22px;
-            margin-bottom: 22px;
+            padding: 20px;
+            margin-bottom: 20px;
             transition: all 0.25s ease;
         }}
         .cream-card:hover {{
@@ -288,7 +287,7 @@ class DashboardHandler(BaseHTTPRequestHandler):
             padding: 26px 20px;
         }}
         .logo-title {{
-            font-size: 32px;
+            font-size: 30px;
             font-weight: 800;
             letter-spacing: -0.5px;
             background: linear-gradient(135deg, #0369a1 0%, #0f766e 50%, #b45309 100%);
@@ -331,16 +330,11 @@ class DashboardHandler(BaseHTTPRequestHandler):
             font-size: 11px;
         }}
 
+        /* 5-Column Responsive Grid */
         .grid-5 {{
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
             gap: 14px;
-            margin-bottom: 22px;
-        }}
-        .grid-4 {{
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 16px;
             margin-bottom: 22px;
         }}
         .card-label {{
@@ -351,7 +345,7 @@ class DashboardHandler(BaseHTTPRequestHandler):
             letter-spacing: 0.8px;
         }}
         .card-val {{
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 800;
             margin: 8px 0 4px 0;
             letter-spacing: -0.5px;
@@ -364,7 +358,7 @@ class DashboardHandler(BaseHTTPRequestHandler):
 
         .chart-box {{
             height: 440px;
-            border-radius: 22px;
+            border-radius: 20px;
             overflow: hidden;
             background: rgba(255, 253, 250, 0.7);
             border: 1px solid var(--card-border);
@@ -372,13 +366,15 @@ class DashboardHandler(BaseHTTPRequestHandler):
             margin-bottom: 22px;
         }}
         .section-title {{
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 800;
             color: var(--text-heading);
-            margin: 24px 0 12px 0;
+            margin: 22px 0 12px 0;
             display: flex;
             align-items: center;
             gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }}
 
         .pos-grid {{
@@ -427,7 +423,7 @@ class DashboardHandler(BaseHTTPRequestHandler):
         .log-item {{
             font-family: 'JetBrains Mono', monospace;
             font-size: 12px;
-            padding: 9px 0;
+            padding: 8px 0;
             color: #44403c;
             border-bottom: 1px solid rgba(120, 113, 108, 0.08);
             list-style: none;
@@ -463,32 +459,37 @@ class DashboardHandler(BaseHTTPRequestHandler):
             </div>
         </div>
 
-        <!-- 4 Capital & Portfolio Cards -->
-        <div class="grid-4">
-            <div class="cream-card">
+        <!-- 5 Key Capital & Profit Cards -->
+        <div class="grid-5">
+            <div class="cream-card" style="border-top: 3px solid #0369a1;">
                 <div class="card-label">Allocated Capital</div>
                 <div class="card-val" style="color: #0369a1;">Rs {config.ACCOUNT_SIZE_INR:,.2f}</div>
-                <div class="card-sub">Base allocated principal</div>
+                <div class="card-sub">Base initial capital</div>
             </div>
-            <div class="cream-card">
+            <div class="cream-card" style="border-top: 3px solid {pnl_color};">
+                <div class="card-label">Total Realized Profit (P&L)</div>
+                <div class="card-val" style="color: {pnl_color};">Rs {pnl_val:+.2f}</div>
+                <div class="card-sub">Net Profit ({BOT_STATE['total_trades']} trades)</div>
+            </div>
+            <div class="cream-card" style="border-top: 3px solid #0f766e;">
                 <div class="card-label">Current Account Balance</div>
-                <div class="card-val" style="color: #15803d;">Rs {current_balance:,.2f}</div>
-                <div class="card-sub">Capital + Net Realized PnL</div>
+                <div class="card-val" style="color: #0f766e;">Rs {current_balance:,.2f}</div>
+                <div class="card-sub">Capital + Realized Profit</div>
             </div>
-            <div class="cream-card">
+            <div class="cream-card" style="border-top: 3px solid #b45309;">
                 <div class="card-label">Max Order Cap (30%)</div>
                 <div class="card-val" style="color: #b45309;">Rs {config.MAX_ORDER_VALUE_INR:,.0f}</div>
-                <div class="card-sub">Risk budget per trade</div>
+                <div class="card-sub">Per trade allocation</div>
             </div>
-            <div class="cream-card">
+            <div class="cream-card" style="border-top: 3px solid #c2410c;">
                 <div class="card-label">Bitcoin Live Price</div>
                 <div class="card-val" style="color: #c2410c;">${BOT_STATE['btc_price']:,.2f}</div>
-                <div class="card-sub">RSI (14): {BOT_STATE['rsi_14']} â€¢ {BOT_STATE['trend']}</div>
+                <div class="card-sub">RSI: {BOT_STATE['rsi_14']} • {BOT_STATE['trend']}</div>
             </div>
         </div>
 
         <!-- TradingView Chart -->
-        <div class="section-title">ðŸ“Š Live BTC/USDT Market Chart</div>
+        <div class="section-title">Live BTC/USDT Market Chart</div>
         <div class="chart-box">
             <div id="tradingview_chart" style="height:100%; width:100%;"></div>
             <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
@@ -501,7 +502,7 @@ class DashboardHandler(BaseHTTPRequestHandler):
                 "theme": "light",
                 "style": "1",
                 "locale": "en",
-                "toolbar_bg": "#f5f2eb",
+                "toolbar_bg": "#f6f3ed",
                 "enable_publishing": false,
                 "hide_side_toolbar": false,
                 "container_id": "tradingview_chart"
@@ -510,14 +511,14 @@ class DashboardHandler(BaseHTTPRequestHandler):
         </div>
 
         <!-- Position & P&L Monitor -->
-        <div class="section-title">âš¡ Real-time Position & P&L Monitor</div>
+        <div class="section-title">Real-time Position & P&L Monitor</div>
         {pos_html}
 
         <!-- Trade History Table -->
         <div class="cream-card" style="margin-bottom: 22px;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-                <div class="section-title" style="margin:0;">ðŸ“œ Trade History & Performance</div>
-                <a href="/download/csv" class="btn-download">ðŸ“¥ Download CSV</a>
+                <div class="section-title" style="margin:0;">Trade History & Performance</div>
+                <a href="/download/csv" class="btn-download">Download CSV</a>
             </div>
             <div style="overflow-x:auto;">
                 <table>
@@ -539,12 +540,12 @@ class DashboardHandler(BaseHTTPRequestHandler):
 
         <!-- Real-time Activity Log -->
         <div class="cream-card">
-            <div class="section-title" style="margin:0 0 12px 0;">ðŸ“¡ Live Bot Scanner Logs</div>
+            <div class="section-title" style="margin:0 0 12px 0;">Live Bot Scanner Logs</div>
             <ul style="padding:0; margin:0;">
                 {logs_html}
             </ul>
             <p style="font-size:11px; color:#78716c; margin:14px 0 0 0; text-align:right;">
-                Auto-refreshes every 30s â€¢ Last scan: {BOT_STATE['last_check_time']}
+                Auto-refreshes every 30s • Last scan: {BOT_STATE['last_check_time']}
             </p>
         </div>
     </div>
@@ -563,4 +564,3 @@ def start_server():
 
 if __name__ == "__main__":
     start_server()
-
