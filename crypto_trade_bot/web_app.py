@@ -1,4 +1,4 @@
-﻿"""
+"""
 Institutional-Grade AI Crypto Trading Terminal & Live Web Server
 Theme: Apple Warm Cream & Frosted Latte Glass
 Features:
@@ -331,12 +331,12 @@ class DashboardHandler(BaseHTTPRequestHandler):
             font-size: 11px;
         }}
 
-                .grid-5 {
+        .grid-5 {{
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 14px;
             margin-bottom: 22px;
-        }
+        }}
         .grid-4 {{
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
