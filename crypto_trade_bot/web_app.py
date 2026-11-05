@@ -1,4 +1,4 @@
-"""
+﻿"""
 Web Dashboard & 24/7 Cloud Background Worker for MADE BY ALEX
 Features:
 - Live Interactive TradingView Bitcoin Chart
@@ -188,7 +188,7 @@ class DashboardHandler(BaseHTTPRequestHandler):
                 </div>
                 <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px;">
                     <div><span style="color:#94a3b8;">Entry:</span> <b>${pos['entry_price']:,.2f}</b></div>
-                    <div><span style="color:#94a3b8;">Risk Cap:</span> <b>Rs {pos.get('risk_amount_inr', 25.0):.2f}</b></div>
+                    <div><span style="color:#94a3b8;">Trade Purchase Value:</span> <b style="color:#facc15;">Rs {pos.get('position_inr', config.MAX_ORDER_VALUE_INR):,.2f}</b></div>
                     <div><span style="color:#ef4444;">Stop Loss:</span> <b>${pos['stop_loss']:,.2f}</b></div>
                     <div><span style="color:#10b981;">Target (TP):</span> <b>${pos['take_profit']:,.2f}</b></div>
                 </div>
@@ -287,14 +287,29 @@ class DashboardHandler(BaseHTTPRequestHandler):
     <h3 style="margin:15px 0 8px 0; font-size:16px; color:#e2e8f0;">⚡ Position & P&L Monitor</h3>
     {pos_html}
 
+    <!-- Capital & Account Summary Cards -->
+    <div class="grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 12px;">
+        <div class="stat" style="border-top: 3px solid #38bdf8;">
+            <div style="color:#94a3b8; font-size:12px;">Allocated Capital</div>
+            <div class="val" style="color:#38bdf8;">Rs {config.ACCOUNT_SIZE_INR:,.2f}</div>
+            <div style="color:#64748b; font-size:10px; margin-top:3px;">Base Initial Balance</div>
+        </div>
+        <div class="stat" style="border-top: 3px solid #10b981;">
+            <div style="color:#94a3b8; font-size:12px;">Current Account Balance</div>
+            <div class="val" style="color:#10b981;">Rs {(config.ACCOUNT_SIZE_INR + BOT_STATE['total_pnl_inr']):,.2f}</div>
+            <div style="color:#64748b; font-size:10px; margin-top:3px;">Capital + Realized P&L</div>
+        </div>
+    </div>
     <div class="grid">
         <div class="stat">
-            <div style="color:#94a3b8; font-size:12px;">Total Trades</div>
-            <div class="val">{BOT_STATE['total_trades']}</div>
+            <div style="color:#94a3b8; font-size:12px;">Max Order Size (Cap)</div>
+            <div class="val" style="color:#f59e0b;">Rs {config.MAX_ORDER_VALUE_INR:,.0f}</div>
+            <div style="color:#64748b; font-size:10px; margin-top:3px;">Per Trade Allocation</div>
         </div>
         <div class="stat">
-            <div style="color:#94a3b8; font-size:12px;">Booked P&L</div>
-            <div class="val" style="color:#38bdf8;">Rs {BOT_STATE['total_pnl_inr']:+.2f}</div>
+            <div style="color:#94a3b8; font-size:12px;">Booked P&L / Trades</div>
+            <div class="val" style="color:#38bdf8;">Rs {BOT_STATE['total_pnl_inr']:+.2f} <span style="font-size:13px; color:#94a3b8;">({BOT_STATE['total_trades']} trades)</span></div>
+            <div style="color:#64748b; font-size:10px; margin-top:3px;">Fresh Cycle</div>
         </div>
     </div>
 
@@ -341,3 +356,5 @@ def start_server():
 
 if __name__ == "__main__":
     start_server()
+
+
