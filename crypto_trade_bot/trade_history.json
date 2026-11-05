@@ -1,88 +1,11 @@
 {
-    "account_size_inr": 1000.0,
-    "consecutive_losses": 0,
-    "lockout_until": null,
-    "total_pnl_inr": 0.0,
-    "wins": 0,
-    "losses": 0,
-    "trades": [
-        {
-            "date": "2026-10-20 16:39:15",
-            "direction": "SHORT",
-            "entry": 81601.39,
-            "stop": 83466.83,
-            "target": 78803.23,
-            "risk_inr": 25.0,
-            "position_inr": 300.0,
-            "reward_to_risk": "1.5 : 1",
-            "result": "OPEN",
-            "pnl_inr": 0.0,
-            "rule_broken": "N"
-        },
-        {
-            "date": "2026-10-20 17:08:17",
-            "direction": "SHORT",
-            "entry": 81532.01,
-            "stop": 83466.83,
-            "target": 78629.78,
-            "risk_inr": 25.0,
-            "position_inr": 300.0,
-            "reward_to_risk": "1.5 : 1",
-            "result": "OPEN",
-            "pnl_inr": 0.0,
-            "rule_broken": "N"
-        },
-        {
-            "date": "2026-10-20 17:11:37",
-            "direction": "SHORT",
-            "entry": 81642.0,
-            "stop": 83466.83,
-            "target": 78904.76,
-            "risk_inr": 25.0,
-            "position_inr": 300.0,
-            "reward_to_risk": "1.5 : 1",
-            "result": "OPEN",
-            "pnl_inr": 0.0,
-            "rule_broken": "N"
-        },
-        {
-            "date": "2026-10-20 17:14:45",
-            "direction": "SHORT",
-            "entry": 81586.0,
-            "stop": 83466.83,
-            "target": 78764.76,
-            "risk_inr": 25.0,
-            "position_inr": 300.0,
-            "reward_to_risk": "1.5 : 1",
-            "result": "OPEN",
-            "pnl_inr": 0.0,
-            "rule_broken": "N"
-        },
-        {
-            "date": "2026-10-20 17:20:40",
-            "direction": "SHORT",
-            "entry": 81489.98,
-            "stop": 83466.83,
-            "target": 78524.7,
-            "risk_inr": 25.0,
-            "position_inr": 300.0,
-            "reward_to_risk": "1.5 : 1",
-            "result": "OPEN",
-            "pnl_inr": 0.0,
-            "rule_broken": "N"
-        },
-        {
-            "date": "2026-10-20 18:04:34",
-            "direction": "SHORT",
-            "entry": 81542.01,
-            "stop": 83466.83,
-            "target": 78654.78,
-            "risk_inr": 25.0,
-            "position_inr": 300.0,
-            "reward_to_risk": "1.5 : 1",
-            "result": "OPEN",
-            "pnl_inr": 0.0,
-            "rule_broken": "N"
-        }
-    ]
+    "wins":  0,
+    "losses":  0,
+    "trades":  [
+
+               ],
+    "lockout_until":  null,
+    "account_size":  5000,
+    "total_pnl_inr":  0,
+    "consecutive_losses":  0
 }
